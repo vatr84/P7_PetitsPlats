@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+dd,
+small {
+  @apply block text-sm text-gray;
+}
+
+.active {
+  @apply bg-yellow;
+}
+
+.active:hover i {
+  opacity: 1;
+}
+
+[aria-expanded='true'] {
+  > i {
+    @apply rotate-180;
+  }
+}
+
+.error {
+  @apply outline outline-4 outline-rose-500;
+}
