@@ -8,15 +8,14 @@ export const rechercherRecettesParTexte = (value, recipes) => {
     const { name, ingredients, description } = recipes[index]
 
     const correspondanceDansNom = name.toLowerCase().includes(minuscules)
-
     if (correspondanceDansNom) {
-      recettesFiltrees = [...recettesFiltrees, recipes[index]]
+      recettesFiltrees.push(recipes[index])
       continue
     }
 
     const correspondanceDansDescription = description.toLowerCase().includes(minuscules)
     if (correspondanceDansDescription) {
-      recettesFiltrees = [...recettesFiltrees, recipes[index]]
+      recettesFiltrees.push(recipes[index])
       continue
     }
 
@@ -30,13 +29,13 @@ export const rechercherRecettesParTexte = (value, recipes) => {
     }
 
     if (correspondanceDansIngredients) {
-      recettesFiltrees = [...recettesFiltrees, recipes[index]]
-      continue
+      recettesFiltrees.push(recipes[index])
     }
   }
 
   return recettesFiltrees
 }
+
 
 export const rechercherRecettesParMotsCles = (filters, recipes) => {
   return recipes.filter(({ ingredients, appliance, ustensils }) => {
