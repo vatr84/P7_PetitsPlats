@@ -1,41 +1,23 @@
 // Fonction pour rechercher des recettes en fonction d'un texte saisi
 export const rechercherRecettesParTexte = (value, recipes) => {
   
-  let recettesFiltrees = []
-  const minuscules = value.trim().toLowerCase()
-
-  for (let index = 0; index < recipes.length; index++) {
-    const { name, ingredients, description } = recipes[index]
+  return recipes.filter(({ name, ingredients, description }) => {
+    const minuscules = value.trim().toLowerCase()
 
     const correspondanceDansNom = name.toLowerCase().includes(minuscules)
-
-    if (correspondanceDansNom) {
-      recettesFiltrees = [...recettesFiltrees, recipes[index]]
-      continue
-    }
+    if (correspondanceDansNom) return true
 
     const correspondanceDansDescription = description.toLowerCase().includes(minuscules)
-    if (correspondanceDansDescription) {
-      recettesFiltrees = [...recettesFiltrees, recipes[index]]
-      continue
-    }
+    if (correspondanceDansDescription) return true
 
-    let correspondanceDansIngredients = false
-    for (let i = 0; i < ingredients.length; i++) {
-      const { ingredient } = ingredients[i]
-      if (ingredient.toLowerCase().includes(minuscules)) {
-        correspondanceDansIngredients = true
-        break
-      }
-    }
+    const correspondanceDansIngredients = ingredients.some(({ ingredient }) => {
+      return ingredient.toLowerCase().includes(minuscules)
+    })
 
-    if (correspondanceDansIngredients) {
-      recettesFiltrees = [...recettesFiltrees, recipes[index]]
-      continue
-    }
-  }
+    if (correspondanceDansIngredients) return true
 
-  return recettesFiltrees
+    return false
+  })
 }
 
 export const rechercherRecettesParMotsCles = (filters, recipes) => {
